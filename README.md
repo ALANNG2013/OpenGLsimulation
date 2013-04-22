@@ -1,2 +1,1 @@
-hongkongese
-===========
+OpenGL simulation program
