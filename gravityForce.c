@@ -54,14 +54,14 @@ const int TIMERMSECS = 20;
 float animation_time = 0;
 const float  animation_step = .5;
 
-float SphAmbDiff[7][4] = {		    // The ambient/diffuse colors of the spheres 
+float SphAmbDiff[7][4] = {		        // The ambient/diffuse colors of the spheres 
 	{0.5, 0.0, 0.0, 1.0},			// Red
 	{0.5, 0.5, 0.0, 1.0},			// Yellow
 	{0.0, 0.5, 0.0, 1.0},			// Green
 	{0.0, 0.5, 0.5, 1.0},			// Cyan
 	{0.0, 0.0, 0.5, 1.0},			// Blue
 	{0.5, 0.0, 0.5, 1.0},			// Magenta
-	{0.5, 0.2, 0.1, 0.9},           // BROWN
+	{0.5, 0.2, 0.1, 0.9},                  // BROWN
 };
 float SphSpecular[4] = { 1, 1, 1, 1.0 };	
 
@@ -73,13 +73,13 @@ float Lt0diff[4] = {1.0, 1.0, 1.0, 1.0};
 // glutKeyboardFunc is called below to set this function to handle
 void printw (float x, float y, float z, char* format, ...)
 {
-	va_list args;	//  Variable argument list
+	va_list args;	        //  Variable argument list
 	int len;		//	String length
 	int i;			//  Iterator
-	char * text;	//	Text
+	char * text;	       // Text
 
 	//  Initialize a variable argument list
-	va_start(args, format);
+	va_start(args, ormat);
 
 	//  Return the number of characters in the string referenced the list of arguments
 	//  _vscprintf doesn't count terminating '\0' (that's why +1)
@@ -87,7 +87,7 @@ void printw (float x, float y, float z, char* format, ...)
 
 	//  Allocate memory for a string of the specified size
 	text =(char*) malloc(len * sizeof(char));
-    if (text==NULL)
+        if (text==NULL)
 		exit (1);
 
 	//  Write formatted output using a pointer to the list of arguments
@@ -100,7 +100,7 @@ void printw (float x, float y, float z, char* format, ...)
 	glRasterPos3f (x, y, z);
 
 	//  Draw the characters one by one
-    for (i = 0; text[i] != '\0'; i++)
+        for (i = 0; text[i] != '\0'; i++)
         glutBitmapCharacter(font_style, text[i]);
 
 	//  Free the allocated memory for the string
@@ -120,11 +120,11 @@ static void KeyPressFunc( unsigned char Key, int x, int y )
 	case 'S':
 		Key_s();
 		break;
-	case 27:	// Escape key
+	case 27:	       // Escape key
 		exit(1);
 	case 'd':
 	case 'D':
-		Key_up();  // Double the animation time step
+		Key_up();     // Double the animation time step
 		break;
 	case 'u':
 	case 'U':          
@@ -134,19 +134,19 @@ static void KeyPressFunc( unsigned char Key, int x, int y )
  case 'x': // Rotates screen on x axis 
     rotX -= 0.5f;
     break;
-    case 'X': // Opposite way 
+    case 'X': 			// Opposite way 
     rotX += 0.5f;
     break;
-    case 'y': // Rotates screen on y axis
+    case 'y': 			// Rotates screen on y axis
     rotY -= 0.5f;
     break;
-    case 'Y': // Opposite way
+    case 'Y': 			// Opposite way
     rotY += 0.5f; 
     break; 
-    case 'z': // Rotates screen on z axis
+    case 'z': 			// Rotates screen on z axis
     rotZ -= 0.5f;
     break;
-    case 'Z': // Opposite way
+    case 'Z': 			// Opposite way
     rotZ += 0.5f;
     break;
     // j,J,k,K,l,L uses the gluLookAt function for navigation
@@ -174,9 +174,9 @@ static void KeyPressFunc( unsigned char Key, int x, int y )
     glLoadIdentity();
     gluLookAt (rotLx, rotLy, 15.0 + rotLz, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
     break;
-    case 'l': 	// It has a special case when the rotLZ becomes 
+    case 'l': 	        // It has a special case when the rotLZ becomes 
 		       // less than -15 the screen is viewed from the opposite side
-              // therefore this if statement below does not allow rotLz be less than -15
+                      // therefore this if statement below does not allow rotLz be less than -15
     if(rotLz + 14 >= 0)
     rotLz -= 0.2f;           
     glMatrixMode(GL_MODELVIEW);    
@@ -239,28 +239,28 @@ static void SpecialKeyFunc( int Key, int x, int y )
 //	case GLUT_KEY_DOWN:
 //		Key_down();
 //		break;
- case GLUT_KEY_LEFT : // Rotate on x axis
+ case GLUT_KEY_LEFT : 		// Rotate on x axis
     X -= 0.1f;
     break;
-    case GLUT_KEY_RIGHT : // Rotate on x axis (opposite)
+    case GLUT_KEY_RIGHT :	 // Rotate on x axis (opposite)
     X += 0.1f;
     break;
-    case GLUT_KEY_UP : // Rotate on y axis 
+    case GLUT_KEY_UP : 		// Rotate on y axis 
     Y += 0.1f;
 
     break;
-    case GLUT_KEY_DOWN : // Rotate on y axis (opposite)
+    case GLUT_KEY_DOWN :	 // Rotate on y axis (opposite)
 	
     Y -= 0.1f;
     break; 
-    case GLUT_KEY_PAGE_UP: // Rotate on z axis
+    case GLUT_KEY_PAGE_UP: 	// Rotate on z axis
     Z -= 0.1f;
     break;
-    case GLUT_KEY_PAGE_DOWN:// Rotate on z axis (opposite)
+    case GLUT_KEY_PAGE_DOWN:	// Rotate on z axis (opposite)
     Z += 0.1f;
     break;
 }
-    glutPostRedisplay(); // Redraw the scene
+    glutPostRedisplay(); 	// Redraw the scene
 
 
 }
@@ -269,13 +269,13 @@ static void SpecialKeyFunc( int Key, int x, int y )
 static void Key_r(void)
 {
 	if ( singleStep )
-	{							// If ending single step mode
+	{					// If ending single step mode
 		singleStep = GL_FALSE;
 		spinMode = GL_TRUE;		// Restart animation
 	}
 	else 
 	{
-		spinMode = !spinMode;	// Toggle animation on and off.
+		spinMode = !spinMode;	        // Toggle animation on and off.
 	}
 }
 
@@ -335,21 +335,21 @@ float z= 0.0;
  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the redering window
 
  glPushMatrix(); 					// It is important to push the Matrix before calling 
- 									// glRotatef and glTranslatef
+ 							// glRotatef and glTranslatef
     glRotatef(rotX,1.0,0.0,0.0);   // Rotate on x
     glRotatef(rotY,0.0,1.0,0.0);   // Rotate on y
     glRotatef(rotZ,0.0,0.0,1.0);   // Rotate on z
-    glTranslatef(X, Y, Z); 	      // Translates the screen left or right, 
-			                      // up or down or zoom in zoom out
-                                  // Draw the positive side of the lines x,y,z
+    glTranslatef(X, Y, Z); 	   // Translates the screen left or right, 
+			           // up or down or zoom in zoom out
+                                   // Draw the positive side of the lines x,y,z
     glBegin(GL_LINES);
-    glColor3f (0.0, 1.0, 0.0);   // Green for x axis
+    glColor3f (0.0, 1.0, 0.0);    // Green for x axis
     glVertex3f(0,0,0);
     glVertex3f(10,0,0);
-    glColor3f(1.0,0.0,0.0);     // Red for y axis
+    glColor3f(1.0,0.0,0.0);      // Red for y axis
     glVertex3f(0,0,0);
     glVertex3f(0,10,0);
-    glColor3f(0.0,0.0,1.0);     // Blue for z axis
+    glColor3f(0.0,0.0,1.0);      // Blue for z axis
     glVertex3f(0,0,0); 
     glVertex3f(0,0,10);
 	
@@ -357,7 +357,7 @@ float z= 0.0;
 
  // Dotted lines for the negative sides of x,y,z
     glEnable(GL_LINE_STIPPLE); 	// Enable line stipple to use a 
-				                // dotted pattern for the lines
+			        // dotted pattern for the lines
     glLineStipple(1, 0x0101); 	// Dotted stipple pattern for the lines
     glBegin(GL_LINES); 
     glColor3f (0.0, 1.0, 0.0); 	// Green for x axis
@@ -384,7 +384,7 @@ glPushMatrix();						    // Save matrix state
     glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, Noemit);	// Turn off emission
  //  glLightfv(GL_LIGHT0, GL_POSITION, zeroPos );
  
-   glRotatef( CirclePerSec, 0.0, 1.0, 0.0);					 // object 1 , Earth
+   glRotatef( CirclePerSec, 0.0, 1.0, 0.0);		       // object 1 , Earth
    glTranslatef(2.0, 0.0, 0.0 );
    glutSolidSphere (0.5, 30, 30);
 
