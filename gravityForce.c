@@ -307,9 +307,9 @@ void animate(int t)
         float time_elapsed = TIMERMSECS/1000.0;
         float current_step = animation_step* time_elapsed;      
         if(current_step < animation_step*2) 
-                animation_time += current_step;
-       glutPostRedisplay();
-       glutTimerFunc(TIMERMSECS, animate, 0);
+        animation_time += current_step;
+        glutPostRedisplay();
+        glutTimerFunc(TIMERMSECS, animate, 0);
 }
 
 static void Animate(void)
@@ -318,21 +318,24 @@ static void Animate(void)
 float x= 0.0;	
 float y= 0.0;
 float z= 0.0;
-	animate(0);
+
+animate(0);
 
     if (spinMode)
 	{
-		// Update the animation state
- 		CirclePerSec += AnimateIncrement/60.0;
-		CirclePerSec = CirclePerSec - ((int)(CirclePerSec/360))*360; // one rotation
+	    // Update the animation state
+ 	    CirclePerSec += AnimateIncrement/60.0;
+	    CirclePerSec = CirclePerSec - ((int)(CirclePerSec/360))*360;  // one rotation
 	   
-        xForce =((float) cos(CirclePerSec) * Gravity * Mass) / pow(xr,2); // equation  , f=cos(x) m1m2/r^2 
+            xForce =((float) cos(CirclePerSec) * Gravity * Mass) / pow(xr,2); 
+            // equation  , f=cos(x) m1m2/r^2 
 	
-		xPosition =(-( acceleration * pow(CirclePerSec,2) ) / 2 ) + (CirclePerSec * velocity);   //  p(t) = - a t2  + t v
+	    xPosition =(-( acceleration * pow(CirclePerSec,2) ) / 2 ) + (CirclePerSec * velocity); 
+            //  p(t) = - a t2  + t v
 	    xxposition = xPosition / 10000.0;   // scale down
 	}
 
- glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the redering window
+ glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     // Clear the redering window
 
  glPushMatrix(); 					// It is important to push the Matrix before calling 
  							// glRotatef and glTranslatef
@@ -370,12 +373,14 @@ float z= 0.0;
     glVertex3f(0,0,0);
     glVertex3f(0,0,-10);
     glEnd();
-    glDisable(GL_LINE_STIPPLE); 	// Disable the line stipple
+    glDisable(GL_LINE_STIPPLE); // Disable the line stipple
 	
-glPushMatrix();						    // Save matrix state
+        glPushMatrix();				                 // Save matrix state
 	glLoadIdentity();					// Clear the current matrix (Modelview)
-	glTranslatef ( 0.0, 0.0, -10.0 );   // Back off eight units to be able to view from the origin.
-    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, SphAmbDiff[2] );  // select color array sphambdiff[] 
+	glTranslatef ( 0.0, 0.0, -10.0 );   
+       // Back off eight units to be able to view from the origin.
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, SphAmbDiff[2] );  
+      // select color array sphambdiff[] 
  	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, SphSpecular );
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, SphShininess);	
     glTranslatef( 0.0, 0.0, 0.0);
@@ -388,8 +393,9 @@ glPushMatrix();						    // Save matrix state
    glTranslatef(2.0, 0.0, 0.0 );
    glutSolidSphere (0.5, 30, 30);
 
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, SphAmbDiff[3] );  // select color array sphambdiff[] 
-   glRotatef( CirclePerSec, xxposition, 1.0, 0.0 );							// object 2 
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, SphAmbDiff[3] );  
+   // select color array sphambdiff[] 
+   glRotatef( CirclePerSec, xxposition, 1.0, 0.0 );           // object 2 
    glTranslatef(4.0, 0.0, 0.0 );
    glutSolidSphere (0.2, 30, 30);
 
@@ -401,7 +407,7 @@ printw (-1.0, -7.0,0, "Position = %f", xxposition);
 printw (-13.0, -8.0,0, "Force  = %f", xForce);
 printw (-1.0,-8.0,0, "Current time = %f",  animation_time);
 
-glFlush();						// Flush the pipeline, and swap the buffers
+glFlush();				// Flush the pipeline, and swap the buffers
 glutSwapBuffers();
  
 	if ( singleStep )
@@ -420,11 +426,11 @@ glutSwapBuffers();
 void OpenGLInit(void)
 {
 
-	glClearColor (0.0, 0.0, 0.0, 0.0);  // Clear the color 
+    glClearColor (0.0, 0.0, 0.0, 0.0);           // Clear the color 
     glShadeModel( GL_FLAT );			// Set the shading model to GL_FLAT
     glClearColor( 0.0, 0.0, 0.0, 0.0 );
     glClearDepth( 1.0 );
-   glEnable (GL_LINE_SMOOTH);
+    glEnable (GL_LINE_SMOOTH);   
  //   glEnable( GL_DEPTH_TEST );
  glHint(GL_LINE_SMOOTH_HINT, GL_NICEST); // Set Line Antialiasing
 
@@ -439,19 +445,19 @@ static void ResizeWindow(int w, int h)
 	glViewport( 0, 0, w, h );	// View port uses whole window
 	aspectRatio = (float)w/(float)h;
 
-	// Set up the projection view matrix (not very well!)
+    // Set up the projection view matrix (not very well!)
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
     gluPerspective( 60.0, aspectRatio, 1.0, 30.0 );
 
-	// Select the Modelview matrix
+    // Select the Modelview matrix
     glMatrixMode( GL_MODELVIEW );
 
 // glViewport (0, 0, (GLsizei) w, (GLsizei) h); // Set the viewport
- //   glMatrixMode (GL_PROJECTION); 	// Set the Matrix mode
- //   glLoadIdentity (); 
- //   gluPerspective(75, (GLfloat) w /(GLfloat) h , 0.10, 100.0);
-  //  glMatrixMode(GL_MODELVIEW);
+//   glMatrixMode (GL_PROJECTION); 	// Set the Matrix mode
+//   glLoadIdentity (); 
+//   gluPerspective(75, (GLfloat) w /(GLfloat) h , 0.10, 100.0);
+//  glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     gluLookAt (rotLx, rotLy, 15.0 + rotLz, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0); 
 
@@ -467,7 +473,7 @@ void initRendering()
 	glEnable(GL_LIGHTING);		// Enable lighting calculations
 	glEnable(GL_LIGHT0);		// Turn on light #0.
 
-	// Set global ambient light
+                                 	// Set global ambient light
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientLight);	
 
 	// Light 0 light values.  Its position is set in drawScene().
@@ -478,36 +484,36 @@ void initRendering()
 }
 
 
-// Main routine
+// Main routine    
 // Set up OpenGL, hook up callbacks, and start the main loop
 int main( int argc, char** argv )
 {
 
-	 Beep(1500,200); // system beep sound
+     Beep(1500,200); // system beep sound
 
-	// Need to double buffer for animation
-	glutInit(&argc,argv);
+    // Need to double buffer for animation
+    glutInit(&argc,argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH );
 
-	// Create and position the graphics window
+    // Create and position the graphics window
     glutInitWindowPosition( 0, 0 );
     glutInitWindowSize( 600, 360 );
     glutCreateWindow( "Gravity Force Simulation of Earth Orbit");
 	
 
-	// Initialize OpenGL.
+    // Initialize OpenGL.
     OpenGLInit();
-    initRendering();  // turn on rendering function
-	// Set up callback functions for key presses
-	glutKeyboardFunc( KeyPressFunc );
-	glutSpecialFunc( SpecialKeyFunc );
-	// Set up the callback function for resizing windows
+    initRendering();  			// turn on rendering function
+					// Set up callback functions for key presses
+    glutKeyboardFunc( KeyPressFunc );
+    glutSpecialFunc( SpecialKeyFunc );
+					// Set up the callback function for resizing windows
     glutReshapeFunc( ResizeWindow );
-	// Callback for graphics image redrawing
+					// Callback for graphics image redrawing
     glutDisplayFunc( Animate );
-	// Start the main loop.  glutMainLoop never returns.
+					// Start the main loop.  glutMainLoop never returns
 
 
-	glutMainLoop(  );
-    return(0);			// Compiler requires this to be here. (Never reached)
+    glutMainLoop(  );
+    return(0);			// Compiler requires this to be here
 }
