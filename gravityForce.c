@@ -1,7 +1,7 @@
 /* Gravity force of Earth orbit and an object with rotation ,
    Study the law of physics ,
    OpenGL ,
-   Modified by NG WING KIN (ALAN NG), BsCE, OUHK , 12-5-2012 , 
+   Modified by NG WING KIN (ALAN NG), BsCE, MIEEE,MIET , OUHK , 12-5-2012 , 
    MSVC++ 2008 Express 
    Windows 7 SP1, Fujtisu Notebook LifeBook SH761 , Core i7-2620M , 2.7GHz, 8GB RAM, OS 64-bit.
 */
